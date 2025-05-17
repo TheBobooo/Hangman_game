@@ -18,26 +18,34 @@ public class GameController {
     @PostConstruct
     public void init() {
         words = new LinkedList<>(Arrays.asList(
-                "Crocodil", "Balena","Elefant", "Tigru", "Girafa", "Rinocer", "Leu", "Pantera", "Zebra", "Urs",
-                "Vultur", "Pinguin", "Cameleon", "Vidra", "Lup", "Vulpe", "Bursuc", "Iepure",
-                "Cangur", "Koala", "Delfin", "Calmar", "Caracatita", "Papagal", "Strut", "Hipopotam",
-                "Gazela", "Antilopa", "Pelican", "Raton", "Foca", "Naparca", "Berbec", "Caprioara",
-                "Cocostar", "Ciocanitoare", "Bufnita", "Ursulet", "Cartita", "Soparla"));
+                "Crocodile", "Whale", "Elephant", "Tiger", "Giraffe", "Rhinoceros", "Lion", "Panther", "Zebra", "Bear",
+                "Eagle", "Penguin", "Chameleon", "Otter", "Wolf", "Fox", "Badger", "Rabbit",
+                "Kangaroo", "Koala", "Dolphin", "Squid", "Octopus", "Parrot", "Ostrich", "Hippopotamus",
+                "Gazelle", "Antelope", "Pelican", "Raccoon", "Seal", "Slowworm", "Ram", "Deer",
+                "Stork", "Woodpecker", "Owl", "TeddyBear", "Mole", "Lizard",
+                "Java", "Debugger", "Compiler", "Algorithm", "Binary"
+        ));
 
         hints = new LinkedList<>(Arrays.asList(
-                "Reptila mare", "Cel mai mare mamifer", "Are trompa lunga si urechi mari", "Felina cu dungi portocalii si negre", "Are gat foarte lung si mananca frunze",
-                "Are un corn mare pe nas", "Este regele junglei", "Felina neagra si agila", "Animal cu dungi albe si negre",
-                "Animal mare, iubitor de miere", "Pasare rapitoare cu vedere excelenta", "Pasare care nu zboara, dar inoata",
-                "Se schimba in functie de mediu", "Traieste in apa si adora sa se joace", "Animal care urla la luna",
-                "Cunoscuta pentru viclenie", "Are dungi albe pe fata si sapa vizuini", "Are urechi lungi si sare repede",
-                "Poarta puiul intr-un buzunar", "Traieste in Australia si iubeste eucaliptul", "Mamifer marin foarte inteligent",
-                "Are tentacule si cerneala", "Are opt brate si traieste in mare", "Pasare colorata care poate imita vorbele",
-                "Pasare mare care nu zboara", "Animal mare care sta mult in apa", "Alerga foarte repede prin savana",
-                "Ruda gazelei, cu coarne lungi", "Pasare cu cioc urias pentru peste", "Animal cu masca neagra pe fata",
-                "Traieste la pol si face trucuri in circ", "Pare un sarpe, dar are picioare", "Are coarne rasucite",
-                "Animal gratios din padure", "Pasare cu picioare lungi", "Bate in copaci cu ciocul",
-                "Pasare nocturna foarte inteleapta", "Forma de plus preferata a copiilor", "Sapa galerii sub pamant",
-                "Mica si se catarara pe pereti"));
+                "Large reptile", "The largest mammal", "Has a long trunk and big ears", "Striped orange-and-black feline", "Very long neck, eats leaves",
+                "Has a large horn on its nose", "King of the jungle", "Agile black feline", "White and black striped animal",
+                "Large animal, loves honey", "Bird of prey with excellent vision", "Cannot fly but swims",
+                "Changes according to environment", "Lives in water and loves to play", "Howls at the moon",
+                "Known for being cunning", "Has white stripes on face, digs burrows", "Has long ears and jumps fast",
+                "Carries its baby in a pouch", "Lives in Australia and loves eucalyptus", "Very intelligent sea mammal",
+                "Has tentacles and ink", "Eight-armed sea creature", "Colorful bird that mimics speech",
+                "Large bird that doesn’t fly", "Big animal that stays in water", "Runs fast in the savannah",
+                "Relative of gazelle, with long horns", "Bird with big beak for fishing", "Animal with a black mask",
+                "Performs tricks in circuses, lives near poles", "Looks like a snake but has legs", "Has twisted horns",
+                "Graceful forest animal", "Long-legged bird", "Hits trees with its beak",
+                "Wise nocturnal bird", "Children’s favorite plush toy", "Digs tunnels underground",
+                "Small and climbs walls",
+                "Popular programming language used for enterprise applications",
+                "Tool used to identify and fix errors in code",
+                "Translates high-level code into machine code",
+                "Step-by-step instructions to solve a problem",
+                "Base-2 number system used in computing"
+        ));
     }
 
     @ModelAttribute("game")

@@ -11,7 +11,6 @@ public class GameState {
     private int wrongGuesses;
     private int score;
 
-    // Constructorul standard (folosit la începutul jocului)
     public GameState(String word, String hint) {
         this.word = word;
         this.hint = hint;
@@ -21,15 +20,14 @@ public class GameState {
         this.wrongGuesses = 0;
     }
 
-    // Constructor cu scor (pentru păstrare la retry)
+
     public GameState(String word, String hint, int previousScore) {
         this.word = word;
         this.hint = hint;
         this.maskedWord = new StringBuilder("_".repeat(word.length()));
         this.attempts = 0;
 
-        // Derivăm numărul de ghiciri corecte și greșite din scorul anterior
-        // Exemplu: dacă scorul era 150 => poate fi 2 corecte (200) și 1 greșită (-50)
+
         this.correctGuesses = Math.max(0, previousScore / 100);
         this.wrongGuesses = Math.max(0, (correctGuesses * 100 - previousScore) / 50);
     }
