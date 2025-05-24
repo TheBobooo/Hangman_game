@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Hangman Game</title>
+    <meta charset="UTF-8" />
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+        }
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.6);
+            z-index: 0;
+        }
+        .container {
+            position: relative;
+            z-index: 1;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            padding: 0 1rem;
+            text-align: center;
+        }
+        h2.greeting {
+            font-weight: 700;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+        }
+        .hint {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            font-style: italic;
+            opacity: 0.85;
+        }
+        .word-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 1.5rem;
+        }
+        .letter-box {
+            width: 48px;
+            height: 48px;
+            border: 3px solid white;
+            font-size: 2rem;
+            line-height: 48px;
+            font-weight: 700;
+            text-transform: uppercase;
+            background-color: rgba(255,255,255,0.1);
+            border-radius: 6px;
+            user-select: none;
+        }
+        input[type="text"] {
+            width: 60px;
+            padding: 0.5rem;
+            font-size: 2rem;
+            text-align: center;
+            border-radius: 6px;
+            border: none;
+            margin-right: 10px;
+        }
+        button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 0.6rem 1.4rem;
+            font-size: 1.2rem;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:disabled {
+            background: #999999;
+            cursor: not-allowed;
+        }
+        button:hover:enabled {
+            background: #5563c1;
+        }
+        p.attempts {
+            margin-top: 1rem;
+            font-weight: 600;
+        }
+        a.retry-button {
+            margin-top: 1.5rem;
+            display: inline-block;
+            background: #ff6666;
+            padding: 0.8rem 2rem;
+            font-weight: 700;
+            border-radius: 6px;
+            color: white;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+        a.retry-button:hover {
+            background: #cc5252;
+        }
+        .fade-image {
+            margin-top: 1rem;
+            display: flex;
+            justify-content: center;
+            animation: fadeOut 3s forwards;
+        }
+
+        @keyframes fadeOut {
+            0%   { opacity: 1; transform: translateY(0px); }
+            70%  { opacity: 0.5; transform: translateY(-10px); }
+            100% { opacity: 0; transform: translateY(-20px); }
+        }
+    </style>
+
+</head>
+
+<body>
+
+<audio id="wrongSound" th:src="@{/wrong.mp3}"></audio>
+
+<div class="container">
+    <div th:if="${message}" class="alert alert-info">
+        <p th:text="${message}"></p>
+    </div>
+    <h2 class="greeting" th:text="'Hello, ' + ${playerName} + '!'">Hello, Player!</h2>
+
+    <div class="hint" th:text="'Hint: ' + ${hint}">Hint: Reptilă mare</div>
+
+    <div class="word-container">
+        <span th:each="c : ${maskedChars}" class="letter-box" th:text="${c}">_</span>
+    </div>
+    <div style="position: absolute; top: 10px; right: 10px; font-weight: bold; font-size: 18px;">
+        Score: <span th:text="${score}">0</span> points
+    </div>
+    <p class="attempts" th:text="'Wrong guesses: ' + ${attempts} + ' / 3'">Wrong guesses: 0 / 3</p>
+
+    <div th:if="${gameOver}">
+        <h2 th:text="${won} ? 'You have won!' : 'You have lost! The word was: ' + ${word}">Rezultat</h2>
+
+        <form th:if="${won}" th:action="@{/reset}" method="post" style="display:inline;">
+            <button type="submit" class="retry-button">Retry</button>
+        </form>
+
+        <a th:if="${!won}" class="retry-button" th:href="@{/start}">Restart</a>
+    </div>
+
+
+
+
+
+    <div th:unless="${gameOver}">
+        <form action="/guess" method="post">
+            <input type="text" name="letter" maxlength="1" required autofocus
+                   th:disabled="${attempts >= 3}" />
+            <button type="submit" th:disabled="${attempts >= 3}">Guess</button>
+        </form>
+        <div th:if="${showWrongGuessImage}" id="wrongGuessImage" class="fade-image">
+            <img th:src="@{/download.jpg}" alt="Wrong guess" width="100" />
+        </div>
+    </div>
+
+</div>
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        const imgDiv = document.getElementById('wrongGuessImage');
+        const audio = document.getElementById('wrongSound');
+
+        if (imgDiv) {
+
+            if (audio) {
+                audio.volume = 0.7;
+                audio.play().catch(err => console.log("Autoplay restriction:", err));
+            }
+
+
+            setTimeout(() => {
+                imgDiv.remove();
+            }, 3000);
+        }
+    });
+</script>
+
+</body>
+</html>
